@@ -7,7 +7,7 @@ from django.views import generic
 from django.utils import timezone
 # Create your views here.
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect,HttpRequest
 from .models import Choice, Question
 
 class ResultsView(generic.DetailView):
@@ -24,10 +24,12 @@ def vote(request,question_id):
         selected_choice.votes+=1
         selected_choice.save()
         return HttpResponseRedirect(reverse('polls:results',args=(question_id,)))
-
-class IndexView(generic.ListView):
-    template_name = 'polls/index.html'
-    context_object_name = 'latest_question_list'
+def index(request):
+    latest_question_list=Question.objects.order_by('pub_date')[:5]
+    num_visits=request.session.get('num_visits',0)
+    request.session['num_visits']=num_visits+1
+    context={'latest_question_list':latest_question_list,'num_visits':num_visits}
+    return render(request,'polls/index.html',context)
 
     def get_queryset(self):
         return Question.objects.filter(pub_date__lte=timezone.now())

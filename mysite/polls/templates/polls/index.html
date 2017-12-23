@@ -1,3 +1,5 @@
+{% extends "polls/base_generic.html" %}
+{%block content%}
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
@@ -9,3 +11,5 @@
 {% endif %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css'%}"/>
+<p>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
+{%endblock%}
