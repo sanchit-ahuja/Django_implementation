@@ -3,7 +3,8 @@ from __future__ import unicode_literals
 import datetime
 from django.utils import timezone
 from django.db import models
-
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 # Create your models here.
 class Question(models.Model):
     question_text=models.CharField(max_length=200)

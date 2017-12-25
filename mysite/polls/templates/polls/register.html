@@ -1,0 +1,24 @@
+{% extends "polls/base_generic.html" %}
+{%block content%}
+<form method="post" action="">
+    {% csrf_token %}
+    
+    <div>
+      <td>{{ form.username.label_tag }}</td>
+      <td>{{ form.username }}</td>
+    </div>
+    <div>
+      <td>{{ form.password.label_tag }}</td>
+      <td>{{ form.password }}</td>
+    </div>
+    <div>
+        <td>{{ form.email.label_tag }}</td>
+        <td>{{ form.email }}</td>
+      </div>
+    
+    <div>
+      <input type="submit" value="login" />
+      <input type="hidden" name="next" value="{{ next }}" />
+    </div>
+    </form>
+{%endblock%}
